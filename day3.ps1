@@ -19,7 +19,7 @@ for ($i = 1; $i -lt $Map.Count; $i++) {
     }
   }
   if ($i % 2 -eq 0) {
-    if ($Map[$i][($i*2) % 31] -eq "#") {
+    if ($Map[$i][($i/2) % 31] -eq "#") {
       $Trees["oddone2down"]++
     }
   }
