@@ -9,3 +9,18 @@ foreach($Line in ($Map | Select-Object -Skip 1)) {
 }
 
 Write-Output $Trees
+
+## PART 2
+$Trees = @{}
+for ($i = 1; $i -lt $Map.Count; $i++) {
+  1,3,5,7 | ForEach-Object { 
+    if($Map[$i][($i*$_) % 31] -eq "#") {
+      $Trees[$_]++
+    }
+  }
+  if ($i % 2 -eq 0) {
+    if ($Map[$i][($i*2) % 31] -eq "#") {
+      $Trees["oddone2down"]++
+    }
+  }
+}
