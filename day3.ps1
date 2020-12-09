@@ -1,4 +1,6 @@
 $Map = Get-Content -Path .\day3_input.txt
+
+# PART 1
 $Trees = 0 
 $idx = 0
 foreach($Line in ($Map | Select-Object -Skip 1)) {
@@ -18,6 +20,7 @@ for ($i = 1; $i -lt $Map.Count; $i++) {
       $Trees[$_]++
     }
   }
+
   if ($i % 2 -eq 0) {
     if ($Map[$i][($i/2) % 31] -eq "#") {
       $Trees["oddone2down"]++
