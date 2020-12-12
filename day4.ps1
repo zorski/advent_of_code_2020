@@ -1,4 +1,3 @@
-$passList = @()
 $passports = Get-Content -Path ./day4_input.txt
 
 $fields = @("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
