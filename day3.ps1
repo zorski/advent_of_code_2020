@@ -10,7 +10,8 @@ foreach($Line in ($Map | Select-Object -Skip 1)) {
   }
 }
 
-Write-Output "how many trees would you encounter? $Trees"
+Write-Output "How many trees would you encounter?"
+Write-Host $Trees -ForegroundColor DarkGreen
 
 ## PART 2
 $Trees = @{}
@@ -28,4 +29,6 @@ for ($i = 1; $i -lt $Map.Count; $i++) {
   }
 }
 
-
+$Part2Result = Invoke-Expression -Command ($Trees.Values -join "*")
+Write-Output "What do you get if you multiply together the number of trees encountered on each of the listed slopes?"
+Write-Host $Part2Result -ForegroundColor DarkGreen
