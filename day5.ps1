@@ -78,7 +78,8 @@ Write-Output "Highest SeatID: $HighestSeatID"
 
 #PART 2
 $AllIds = [System.Collections.Generic.HashSet[int]]::new(780)
-48..818 | ForEach-Object { $AllIDs.Add($PSItem) | Out-Null }
+$SeatStats = $CurrentIds | Measure-Object -Maximum -Minimum
+$SeatStats.Minimum..$SeatStats.Maximum | ForEach-Object { $AllIDs.Add($PSItem) | Out-Null }
 
 $CurrentIds = [System.Collections.Generic.HashSet[int]]::new(780)
 $ConvertedSeatCodes.id | ForEach-Object { $CurrentIds.Add($PSItem) | Out-Null }
