@@ -10,7 +10,7 @@ foreach($Line in ($Map | Select-Object -Skip 1)) {
   }
 }
 
-Write-Output $Trees
+Write-Output "how many trees would you encounter? $Trees"
 
 ## PART 2
 $Trees = @{}
@@ -27,3 +27,5 @@ for ($i = 1; $i -lt $Map.Count; $i++) {
     }
   }
 }
+
+
