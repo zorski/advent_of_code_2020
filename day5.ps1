@@ -72,6 +72,8 @@ function Convert-SeatCode {
 
 $ConvertedSeatCodes = $Seats | Convert-SeatCode
 $HighestSeatID = $ConvertedSeatCodes.id | Measure-Object -Maximum | Select-Object -ExpandProperty Maximum
+
+#Result
 Write-Output "Highest SeatID: $HighestSeatID"
 
 #PART 2
@@ -82,4 +84,6 @@ $CurrentIds = [System.Collections.Generic.HashSet[int]]::new(780)
 $ConvertedSeatCodes.id | ForEach-Object { $CurrentIds.Add($PSItem) | Out-Null }
 
 $AllIds.ExceptWith($CurrentIds)
+
+# Result
 Write-Output "My SeatID: $AllIds"
