@@ -1,13 +1,14 @@
 $PuzzleInput = Get-Content -Path .\day6_input.txt
 
 #PART 1
-$j = 0
 $i = 0
+$k = 0
 $ListOfGroupAnswers = @()
 
-while ($j -lt $PuzzleInput.Count) {
+while ($i -lt $PuzzleInput.Count) {
   $GroupAnswers = @{}
   $groupSize = 0
+  $GroupId = ("#{0:d$($PuzzleInput.Count.ToString().Length)}" -f $k)
   do {
     $groupSize++
     # Adding answers to $GroupAnswers
@@ -23,20 +24,24 @@ while ($j -lt $PuzzleInput.Count) {
     $i++
   } until ($PuzzleInput[$i] -in @("","`r",$null))
   $i++
-  $j = $i
-  $GroupAnswers.Add("#",$groupSize)
-  $ListOfGroupAnswers += $GroupAnswers
+  $k++
+  $GroupData = [PSCustomObject]@{
+    group_id = $GroupId
+    group_size = $groupSize
+    group_answers = $GroupAnswers
+  }
+  $ListOfGroupAnswers += $GroupData
 }
 
 Write-Output 'For each group, count the number of questions to which anyone answered "yes".'
 Write-Output "What is the sum of those counts?"
-Write-Host ($ListOfGroupAnswers.Keys.Where({$_ -ne "#"}).Count) -ForegroundColor DarkGreen
+Write-Host $ListOfGroupAnswers.group_answers.Keys.Count -ForegroundColor DarkGreen
 
 # PART 2
 $Results = foreach($GroupAnswer in $ListOfGroupAnswers) {
   $Count = 0
-  $GroupSize = $GroupAnswer['#']
-  $GroupAnswer.GetEnumerator().Where({$_.Key -ne "#"}) | ForEach-Object {
+  $groupSize = $GroupAnswer.group_size
+  $GroupAnswer.group_answers.GetEnumerator() | ForEach-Object {
     if ($PSItem.Value -eq $groupSize) {
       $Count++
     }
