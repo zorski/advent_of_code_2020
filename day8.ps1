@@ -33,6 +33,6 @@ do {
       $i++
     }
   }
-} until (-not($visited.Add($i)))
+} while ($visited.Add($i))
 
 Write-Output "Accumulator = $acc"
