@@ -1,14 +1,4 @@
-$PuzzleInput = @"
-nop +0
-acc +1
-jmp +4
-acc +3
-jmp -3
-acc -99
-acc +1
-jmp -4
-acc +6
-"@ -split "`n"
+$PuzzleInput = Get-Content -Path ./day8_input.txt
 
 function Parse-Instruction {
   param (
@@ -17,9 +7,8 @@ function Parse-Instruction {
   
   if($Instruction -match "(?<int>[a-z]{3})\s(?<sign>[+-]{1})(?<arg>\d+)"){
     [PSCustomObject]@{
-      int=$Matches['int']
-      sign=$Matches['sign']
-      arg=$Matches['arg']
+      int  = $Matches['int']
+      arg  = [int]"$($Matches['sign'])$($Matches['arg'])"
     }
   } else {
     Write-Warning "couldn't parse the instruction"
@@ -28,23 +17,22 @@ function Parse-Instruction {
 
 $visited = [System.Collections.Generic.HashSet[int]]::new()
 $i = 0
-while($i -lt $PuzzleInput.Count) {
+$acc = 0
+
+do {
   $Int = Parse-Instruction -Instruction $PuzzleInput[$i]
-  if($visited.Add($i)) {
-    echo "ok"
-  } else {
-    echo "byeeem"
-  }
   switch ($Int.int) {
     'nop' { 
-      Write-Warning "nop"
+      $i++
     }
     'jmp' {
-      $i = $i + "$($Int.sign)$($Int.arg-1)" 
+      $i += $Int.arg
     }
     'acc' {
-      $acc += $Int.arg
+      $acc += $Int.arg 
+      $i++
     }
   }
-  $i++ 
-}
+} until (-not($visited.Add($i)))
+
+Write-Output "Accumulator = $acc"
