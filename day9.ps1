@@ -23,6 +23,7 @@ function Check-Previous {
 for ($i = $PREAMBLE_SIZE; $i -lt $PuzzleInput.Count; $i++) {
     if (-not(Check-Previous -Number $PuzzleInput[$i] -Previous $PuzzleInput[($i - $PREAMBLE_SIZE)..($i-1)])) {
         $FoundNumber = $PuzzleInput[$i]
+        break
     }
 }
 
